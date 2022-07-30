@@ -21,7 +21,6 @@ export class App extends Component {
   };
 
   saveContact = data => {
-    console.log(data);
     const newContact = {
       id: nanoid(),
       name: data.name,
