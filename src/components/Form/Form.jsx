@@ -1,58 +1,67 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import toast, { Toaster } from 'react-hot-toast';
 import { Form, Input, Button } from './Form.styled';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
-  onChange = evt => {
-    this.setState({ [evt.target.name]: evt.target.value });
+export const ContactForm = ({ checkContact, saveContact }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const onChange = evt => {
+    switch (evt.target.name) {
+      case 'name':
+        setName(evt.target.value);
+        break;
+      case 'number':
+        setNumber(evt.target.value);
+        break;
+      default:
+        break;
+    }
   };
 
-  handleSubmit = evt => {
+  const handleSubmit = evt => {
     evt.preventDefault();
-    if (this.props.checkContact(this.state.name)) {
-      alert(`${this.state.name} is already  in contacts`);
+    if (checkContact(name)) {
+      toast(`${name} is already  in contacts`);
       return;
     }
-    this.props.saveContact(this.state);
-    this.setState({ name: '', number: '' });
+    saveContact({ name, number });
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <label>
-          Name
-          <Input
-            type="text"
-            name="name"
-            value={this.state.name}
-            onChange={this.onChange}
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-        <label>
-          Number
-          <Input
-            type="tel"
-            name="number"
-            value={this.state.number}
-            onChange={this.onChange}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </label>
-        <Button type="submit">Add contact</Button>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Toaster />
+      <label>
+        Name
+        <Input
+          type="text"
+          name="name"
+          value={name}
+          onChange={onChange}
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
+      </label>
+      <label>
+        Number
+        <Input
+          type="tel"
+          name="number"
+          value={number}
+          onChange={onChange}
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+        />
+      </label>
+      <Button type="submit">Add contact</Button>
+    </Form>
+  );
+};
 
 ContactForm.propTypes = {
   saveContact: PropTypes.func,
