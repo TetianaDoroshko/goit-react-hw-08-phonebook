@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import toast, { Toaster } from 'react-hot-toast';
 import { Form, Input, Button } from './Form.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveContact } from 'redux/contactsSlice';
 
-export const ContactForm = ({ checkContact, saveContact }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(state => state.contacts.contacts);
 
   const onChange = evt => {
     switch (evt.target.name) {
@@ -22,11 +27,13 @@ export const ContactForm = ({ checkContact, saveContact }) => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    if (checkContact(name)) {
+
+    if (contacts.some(contact => contact.name === name)) {
       toast(`${name} is already  in contacts`);
       return;
     }
-    saveContact({ name, number });
+
+    dispatch(saveContact({ name, number }));
     setName('');
     setNumber('');
   };
@@ -61,9 +68,4 @@ export const ContactForm = ({ checkContact, saveContact }) => {
       <Button type="submit">Add contact</Button>
     </Form>
   );
-};
-
-ContactForm.propTypes = {
-  saveContact: PropTypes.func,
-  checkContact: PropTypes.func,
 };
