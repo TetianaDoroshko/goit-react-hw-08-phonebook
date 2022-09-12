@@ -1,33 +1,48 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { createSlice } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
 
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: { contacts: [], filter: '' },
+export const contactsApi = createApi({
+  reducerPath: 'contacts',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://631f603658a1c0fe9f67f58e.mockapi.io',
+  }),
+  endpoints: builder => ({
+    getContacts: builder.query({
+      query: () => '/contacts',
+      providesTags: ['Contacts'],
+    }),
+    addContacts: builder.mutation({
+      query: newContact => ({
+        url: '/contacts',
+        method: 'POST',
+        body: newContact,
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
+    deleteContacts: builder.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
+  }),
+});
+
+export const {
+  useGetContactsQuery,
+  useAddContactsMutation,
+  useDeleteContactsMutation,
+} = contactsApi;
+
+const filterSlice = createSlice({
+  name: 'filter',
+  initialState: '',
   reducers: {
-    saveContact(state, action) {
-      state.contacts.push({ ...action.payload, id: nanoid() });
-    },
-    deleteContact(state, action) {
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload
-      );
-    },
     changeFilter(state, action) {
-      state.filter = action.payload;
+      return action.payload;
     },
   },
 });
-
-export const { saveContact, deleteContact, changeFilter } =
-  contactsSlice.actions;
-export const contactsReduser = contactsSlice.reducer;
-
-const persistConfig = {
-  key: 'contacts',
-  storage,
-};
-
-export const persistedReducer = persistReducer(persistConfig, contactsReduser);
+export const { changeFilter } = filterSlice.actions;
+export const filterReduser = filterSlice.reducer;

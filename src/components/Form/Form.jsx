@@ -1,16 +1,30 @@
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { Form, Input, Button } from './Form.styled';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveContact } from 'redux/contactsSlice';
+import { useAddContactsMutation } from 'redux/contactsSlice';
+import { useGetContactsQuery } from 'redux/contactsSlice';
+import { SpinnerForButton } from 'components/Spinner/Spinner';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
+  const { data: contacts } = useGetContactsQuery();
 
-  const contacts = useSelector(state => state.contacts.contacts);
+  const [addContact, { isLoading, isError, isSuccess, data }] =
+    useAddContactsMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`${data.name} is added to your phonebook.`);
+    }
+  }, [isSuccess, data?.name]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(`We can't add a new contact.`);
+    }
+  }, [isError]);
 
   const onChange = evt => {
     switch (evt.target.name) {
@@ -33,14 +47,18 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(saveContact({ name, number }));
+    const newContact = {
+      createdAt: new Date(),
+      name: name,
+      phone: number,
+    };
+    addContact(newContact);
     setName('');
     setNumber('');
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Toaster />
       <label>
         Name
         <Input
@@ -65,7 +83,9 @@ export const ContactForm = () => {
           required
         />
       </label>
-      <Button type="submit">Add contact</Button>
+      <Button type="submit" disabled={isLoading}>
+        {isLoading ? <SpinnerForButton /> : 'Add contact'}
+      </Button>
     </Form>
   );
 };
