@@ -50,13 +50,14 @@ export const refreshThunk = createAsyncThunk(
       const { data } = await axiosContacts.get('/users/current');
       return data;
     } catch (error) {
+      removeToken();
       return thunkAPI.rejectWithValue(error);
     }
   },
   {
-    condition: (data, thunkAPI) => {
+    condition: (_, thunkAPI) => {
       const savedToken = thunkAPI.getState().auth.token;
-      return savedToken ? true : false;
+      return Boolean(savedToken);
     },
   }
 );

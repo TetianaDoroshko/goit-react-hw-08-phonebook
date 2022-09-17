@@ -6,7 +6,6 @@ import {
   refreshThunk,
 } from './authThunk';
 
-
 const initialState = {
   user: {
     name: '',
@@ -66,12 +65,15 @@ const authSlice = createSlice({
       store.error = null;
     },
     [refreshThunk.fulfilled]: (store, action) => {
+      store.loading = false;
+
       store.user = action.payload;
       store.isLoggedIn = true;
     },
-    [logoutThunk.rejected]: (store, action) => {
+    [refreshThunk.rejected]: (store, action) => {
       store.loading = false;
       store.error = action.payload;
+      store.token = null;
     },
   },
 });

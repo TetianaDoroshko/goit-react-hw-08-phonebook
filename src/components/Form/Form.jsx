@@ -51,8 +51,7 @@ export const ContactForm = () => {
       name: name,
       number: number,
     };
-    console.log(newContact);
-    addContact(JSON.stringify(newContact));
+    addContact(newContact);
     setName('');
     setNumber('');
   };

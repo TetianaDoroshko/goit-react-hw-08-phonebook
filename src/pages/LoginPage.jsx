@@ -24,7 +24,7 @@ export const LoginPage = () => {
           Password:
           <input type="password" name="password" autoComplete="off" />
         </label>
-        <button type="submit">Register</button>
+        <button type="submit">Log in</button>
       </form>
     </div>
   );

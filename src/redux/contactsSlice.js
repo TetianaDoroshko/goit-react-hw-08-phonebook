@@ -6,13 +6,12 @@ import { axiosContacts } from 'services/axiosInstance';
 
 const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: '' }) =>
-  async ({ url, method, data, params }) => {
+  async ({ url, method, data }) => {
     try {
       const result = await axiosContacts({
         url: baseUrl + url,
         method,
         data,
-        params,
       });
       return { data: result.data };
     } catch (axiosError) {
@@ -43,7 +42,7 @@ export const contactsApi = createApi({
       query: newContact => ({
         url: '/contacts',
         method: 'POST',
-        body: newContact,
+        data: newContact,
       }),
       invalidatesTags: ['Contacts'],
     }),
@@ -54,6 +53,14 @@ export const contactsApi = createApi({
       }),
       invalidatesTags: ['Contacts'],
     }),
+    updateContacts: builder.mutation({
+      query: ({ id, user }) => ({
+        url: `/contacts/${id}`,
+        method: 'PATCH',
+        data: user,
+      }),
+      invalidatesTags: ['Contacts'],
+    }),
   }),
 });
 
@@ -61,6 +68,7 @@ export const {
   useGetContactsQuery,
   useAddContactsMutation,
   useDeleteContactsMutation,
+  useUpdateContactsMutation,
 } = contactsApi;
 
 const filterSlice = createSlice({

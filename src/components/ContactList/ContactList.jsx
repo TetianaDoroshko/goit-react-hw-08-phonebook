@@ -8,7 +8,11 @@ import toast from 'react-hot-toast';
 export const ContactList = () => {
   const filter = useSelector(state => state.filter);
 
-  const { data: contacts, error, isLoading } = useGetContactsQuery();
+  const {
+    data: contacts,
+    error,
+    isLoading,
+  } = useGetContactsQuery(null, { refetchOnMountOrArgChange: true });
 
   const renderList = useMemo(
     () =>

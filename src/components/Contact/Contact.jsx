@@ -2,19 +2,23 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Button } from 'components/Form/Form.styled';
 import { useDeleteContactsMutation } from 'redux/contactsSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SpinnerForButton } from 'components/Spinner/Spinner';
 import toast from 'react-hot-toast';
+import { ModalUpdateContact } from 'components/ModalUpdateContact/ModalUpdate';
 
 export const Contact = ({ contact }) => {
-  const [deleteContact, { isError, isLoading, isSuccess, data }] =
-    useDeleteContactsMutation();
+  const [isModalShown, setIsModalShown] = useState(false);
+
+  const [deleteContact, result] = useDeleteContactsMutation();
+
+  const { isError, isLoading, isSuccess } = result;
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`${data?.name} was removed from your phonebook.`);
+      toast.success(`${contact?.name} was removed from your phonebook.`);
     }
-  }, [isSuccess, data?.name]);
+  }, [contact?.name, isSuccess]);
 
   useEffect(() => {
     if (isError) {
@@ -32,6 +36,19 @@ export const Contact = ({ contact }) => {
       >
         {isLoading ? <SpinnerForButton /> : 'Delete'}
       </Button>
+      <Button
+        type="button"
+        onClick={() => setIsModalShown(true)}
+        disabled={isLoading}
+      >
+        {isLoading ? <SpinnerForButton /> : 'Update'}
+      </Button>
+      {isModalShown && (
+        <ModalUpdateContact
+          contact={contact}
+          close={() => setIsModalShown(false)}
+        />
+      )}
     </ListItem>
   );
 };

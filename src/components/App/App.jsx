@@ -13,6 +13,7 @@ import { ContactsPage } from 'pages/ContactsPage';
 import { refreshThunk } from 'redux/authThunk';
 import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
 import { PublicRoute } from 'components/PrivateRoute/PublicRoute';
+import { GreetingPage } from 'pages/GreetingPage';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export const App = () => {
 
           <Routes>
             <Route path="/" element={<Layout />}>
+              <Route index element={<GreetingPage />} />
               <Route
                 path="register"
                 element={
