@@ -1,5 +1,3 @@
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-
 import { createSlice } from '@reduxjs/toolkit';
 import {
   signupThunk,
@@ -8,29 +6,6 @@ import {
   refreshThunk,
 } from './authThunk';
 
-// export const authApi = createApi({
-//   reducerPath: 'contactsAuth',
-//   baseQuery: fetchBaseQuery({
-//     baseUrl: 'https://connections-api.herokuapp.com',
-//   }),
-//   endpoints: builder => ({
-//     contactsSignup: builder.mutation({
-//       query: newUser => ({
-//         url: '/users/signup',
-//         method: 'POST',
-//         body: newUser,
-//       }),
-//     }),
-//     contactsLogin: builder.mutation({
-//       query: user => ({
-//         url: '/users/login',
-//         method: 'POST',
-//         body: user,
-//       }),
-//     }),
-//   }),
-// });
-// export const { useContactsLoginMutation, useContactsSignupMutation } = authApi;
 
 const initialState = {
   user: {
