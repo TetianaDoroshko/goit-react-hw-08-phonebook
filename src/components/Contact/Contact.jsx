@@ -24,7 +24,7 @@ export const Contact = ({ contact }) => {
 
   return (
     <ListItem>
-      <b>{contact.name}</b>: <span>{contact.phone}</span>
+      <b>{contact.name}</b>: <span>{contact.number}</span>
       <Button
         type="button"
         onClick={() => deleteContact(contact.id)}
@@ -44,6 +44,6 @@ Contact.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }),
 };

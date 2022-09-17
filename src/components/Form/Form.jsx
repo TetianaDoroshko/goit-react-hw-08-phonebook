@@ -48,11 +48,11 @@ export const ContactForm = () => {
     }
 
     const newContact = {
-      createdAt: new Date(),
       name: name,
-      phone: number,
+      number: number,
     };
-    addContact(newContact);
+    console.log(newContact);
+    addContact(JSON.stringify(newContact));
     setName('');
     setNumber('');
   };
