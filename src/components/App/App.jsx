@@ -1,9 +1,9 @@
 import { GlobalStyle } from 'components/GlobalStyle';
 import { Container } from './App.styled';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { store, persistor } from 'redux/store';
+import { persistor } from 'redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from 'components/Layout/Layout';
