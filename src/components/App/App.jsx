@@ -1,11 +1,11 @@
 import { GlobalStyle } from 'components/GlobalStyle';
-import { Container } from './App.styled';
+// import { Container } from './App.styled';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { persistor } from 'redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from 'components/Layout/Layout';
 import { LoginPage } from 'pages/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage';
@@ -14,6 +14,7 @@ import { refreshThunk } from 'redux/authThunk';
 import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
 import { PublicRoute } from 'components/PrivateRoute/PublicRoute';
 import { GreetingPage } from 'pages/GreetingPage';
+import { Container } from 'react-bootstrap';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter basename="/goit-react-hw-08-phonebook">
+    <BrowserRouter>
       <PersistGate loading={null} persistor={persistor}>
         <Container>
           <GlobalStyle />
@@ -56,6 +57,7 @@ export const App = () => {
                   </PrivateRoute>
                 }
               />
+              <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>
         </Container>

@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/authThunk';
+import { Form, Button, Container } from 'react-bootstrap';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -14,18 +15,45 @@ export const LoginPage = () => {
     e.target.reset();
   };
   return (
-    <div>
-      <form onSubmit={onFormSubmit}>
-        <label>
-          Email:
-          <input type="email" name="email" />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" autoComplete="off" />
-        </label>
-        <button type="submit">Log in</button>
-      </form>
-    </div>
+    <Container fluid="md">
+      <Form onSubmit={onFormSubmit}>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Phone number</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            required
+            placeholder="Enter email"
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            required
+            placeholder="Enter password"
+            autoComplete="off"
+          />
+        </Form.Group>
+
+        <Button type="submit">Log in</Button>
+      </Form>
+    </Container>
   );
 };
+
+// {/* <div>
+//   <form onSubmit={onFormSubmit}>
+//     <label>
+//       Email:
+//       <input type="email" name="email" />
+//     </label>
+//     <label>
+//       Password:
+//       <input type="password" name="password" autoComplete="off" />
+//     </label>
+//     <button type="submit">Log in</button>
+//   </form>
+// </div>; */}

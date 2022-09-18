@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { Form, Input, Button } from './Form.styled';
 import { useAddContactsMutation } from 'redux/contactsSlice';
 import { useGetContactsQuery } from 'redux/contactsSlice';
 import { SpinnerForButton } from 'components/Spinner/Spinner';
+import { Form, Button } from 'react-bootstrap';
 
-export const ContactForm = () => {
+export const ContactForm = ({ close }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -54,13 +54,14 @@ export const ContactForm = () => {
     addContact(newContact);
     setName('');
     setNumber('');
+    close();
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <label>
-        Name
-        <Input
+      <Form.Group className="mb-3" controlId="name">
+        <Form.Label>Name</Form.Label>
+        <Form.Control
           type="text"
           name="name"
           value={name}
@@ -68,11 +69,13 @@ export const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          placeholder="Enter name"
         />
-      </label>
-      <label>
-        Number
-        <Input
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="number">
+        <Form.Label>Phone number</Form.Label>
+        <Form.Control
           type="tel"
           name="number"
           value={number}
@@ -80,11 +83,47 @@ export const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          placeholder="Enter number"
         />
-      </label>
-      <Button type="submit" disabled={isLoading}>
+      </Form.Group>
+      <Button
+        type="submit"
+        disabled={isLoading}
+        variant="outline-primary"
+        style={{ width: '100%' }}
+      >
         {isLoading ? <SpinnerForButton /> : 'Add contact'}
       </Button>
     </Form>
   );
 };
+
+// {/* <Form onSubmit={handleSubmit}>
+//       <label>
+//         Name
+//         <Input
+//           type="text"
+//           name="name"
+//           value={name}
+//           onChange={onChange}
+//           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//           required
+//         />
+//       </label>
+//       <label>
+//         Number
+//         <Input
+//           type="tel"
+//           name="number"
+//           value={number}
+//           onChange={onChange}
+//           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//           required
+//         />
+//       </label>
+//       <Button type="submit" disabled={isLoading}>
+//         {isLoading ? <SpinnerForButton /> : 'Add contact'}
+//       </Button>
+//     </Form> */}
