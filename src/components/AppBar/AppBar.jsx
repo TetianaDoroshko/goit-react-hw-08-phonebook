@@ -18,7 +18,7 @@ export const AppBar = () => {
       }}
     >
       <Container>
-        <LogoLink href="/">
+        <LogoLink href="/goit-react-hw-08-phonebook/">
           <img
             alt="logo"
             src={logo}

@@ -8,11 +8,13 @@ export const Navigation = () => {
   return (
     <Nav>
       {isLoggedIn ? (
-        <NavItem to="contacts">Contacts</NavItem>
+        <NavItem to="/contacts">Contacts</NavItem>
       ) : (
         <>
-          <Nav.Link href="/register">Register</Nav.Link>
-          <Nav.Link href="/login">Log in</Nav.Link>
+          <Nav.Link href="/goit-react-hw-08-phonebook/register">
+            Register
+          </Nav.Link>
+          <Nav.Link href="/goit-react-hw-08-phonebook/login">Log in</Nav.Link>
         </>
       )}
     </Nav>

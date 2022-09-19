@@ -23,7 +23,7 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/goit-react-hw-08-phonebook">
       <PersistGate loading={null} persistor={persistor}>
         <ContainerFluid fluid>
           <GlobalStyle />

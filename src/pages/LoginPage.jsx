@@ -1,10 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginThunk } from 'redux/authThunk';
 import { Form, Button, Card, Stack } from 'react-bootstrap';
 import { Block, ContainerContacts } from 'components/App/App.styled';
+import toast from 'react-hot-toast';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+
+  const error = useSelector(store => store.auth.error);
 
   const onFormSubmit = e => {
     e.preventDefault();
@@ -15,13 +19,20 @@ export const LoginPage = () => {
     dispatch(loginThunk(user));
     e.target.reset();
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Uncorrect emial or password. Check data and rty again.');
+    }
+  }, [error]);
+
   return (
     <ContainerContacts fluid="md">
       <Block>
         <Card.Body>
           <Form onSubmit={onFormSubmit}>
             <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Phone number</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"

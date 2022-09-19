@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const ContainerFluid = styled(Container)`
   background-color: aliceblue;
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const ContainerPage = styled(Container)`
