@@ -1,10 +1,13 @@
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { signupThunk } from 'redux/authThunk';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Card, Stack } from 'react-bootstrap';
+import { Block, ContainerContacts } from 'components/App/App.styled';
+import toast from 'react-hot-toast';
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
-
+  const error = useSelector(store => store.auth.error);
   const onFormSubmit = e => {
     e.preventDefault();
     const newUser = {
@@ -15,42 +18,55 @@ export const RegisterPage = () => {
     dispatch(signupThunk(newUser));
     e.target.reset();
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Error happens. We couldn't sign up to you.");
+    }
+  }, [error]);
+
   return (
-    <Container fluid="md">
-      <Form onSubmit={onFormSubmit}>
-        <Form.Group className="mb-3" controlId="name">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            required
-            placeholder="Enter name"
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Phone number</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            required
-            placeholder="Enter email"
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            required
-            placeholder="Enter password"
-            autoComplete="off"
-          />
-        </Form.Group>
-        <Button type="submit">Register</Button>
-      </Form>
-    </Container>
+    <ContainerContacts fluid="md">
+      <Block>
+        <Card.Body>
+          <Form onSubmit={onFormSubmit}>
+            <Form.Group className="mb-3" controlId="name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                required
+                placeholder="Enter name"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Phone number</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                required
+                placeholder="Enter email"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                required
+                placeholder="Enter password"
+                autoComplete="off"
+              />
+            </Form.Group>
+            <Stack>
+              <Button type="submit" variant="outline-primary">
+                Register
+              </Button>
+            </Stack>
+          </Form>
+        </Card.Body>
+      </Block>
+    </ContainerContacts>
   );
 };
 

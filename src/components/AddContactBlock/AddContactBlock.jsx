@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ContactForm } from 'components/Form/Form';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Stack } from 'react-bootstrap';
 import { Block } from 'components/App/App.styled';
 import { ButtonClose } from 'components/ButtonClose/ButtonClose.styled';
 
@@ -18,14 +18,15 @@ export const AddContactBlock = () => {
   ) : (
     <Block>
       <Card.Body>
-        <Button
-          type="button"
-          onClick={() => setIsAddFormShown(true)}
-          style={{ width: '100%' }}
-          variant="outline-primary"
-        >
-          Add new contact
-        </Button>
+        <Stack>
+          <Button
+            type="button"
+            onClick={() => setIsAddFormShown(true)}
+            variant="outline-primary"
+          >
+            Add new contact
+          </Button>
+        </Stack>
       </Card.Body>
     </Block>
   );

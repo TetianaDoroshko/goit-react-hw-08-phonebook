@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/authThunk';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Card, Stack } from 'react-bootstrap';
+import { Block, ContainerContacts } from 'components/App/App.styled';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -15,32 +16,39 @@ export const LoginPage = () => {
     e.target.reset();
   };
   return (
-    <Container fluid="md">
-      <Form onSubmit={onFormSubmit}>
-        <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Phone number</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            required
-            placeholder="Enter email"
-          />
-        </Form.Group>
+    <ContainerContacts fluid="md">
+      <Block>
+        <Card.Body>
+          <Form onSubmit={onFormSubmit}>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>Phone number</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                required
+                placeholder="Enter email"
+              />
+            </Form.Group>
 
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            name="password"
-            required
-            placeholder="Enter password"
-            autoComplete="off"
-          />
-        </Form.Group>
-
-        <Button type="submit">Log in</Button>
-      </Form>
-    </Container>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                required
+                placeholder="Enter password"
+                autoComplete="off"
+              />
+            </Form.Group>
+            <Stack>
+              <Button type="submit" variant="outline-primary">
+                Log in
+              </Button>
+            </Stack>
+          </Form>
+        </Card.Body>
+      </Block>
+    </ContainerContacts>
   );
 };
 

@@ -2,16 +2,23 @@ import { Navigation } from 'components/Navigation/Navigation';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
 
-import Container from 'react-bootstrap/Container';
-import logo from 'components/images/logo-96.png';
-import { Navbar } from 'react-bootstrap';
+import logo from 'images/logo-96.png';
+import { Navbar, Container } from 'react-bootstrap';
+import { LogoLink } from 'components/App/App.styled';
 
 export const AppBar = () => {
   const isLoggedIn = useSelector(store => store.auth.isLoggedIn) ?? false;
   return (
-    <Navbar as="header">
+    <Navbar
+      fixed="top"
+      as="header"
+      style={{
+        backgroundColor: 'lightsteelblue',
+        boxShadow: '0px 3px 4px -2px rgba(0, 0, 0, 0.7)',
+      }}
+    >
       <Container>
-        <Navbar.Brand href="/">
+        <LogoLink href="/">
           <img
             alt="logo"
             src={logo}
@@ -19,7 +26,7 @@ export const AppBar = () => {
             className="d-inline-block align-center"
           />{' '}
           Phonebook
-        </Navbar.Brand>
+        </LogoLink>
         <Navigation />
         {isLoggedIn && <UserMenu />}
       </Container>

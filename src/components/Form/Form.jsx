@@ -29,10 +29,10 @@ export const ContactForm = ({ close }) => {
   const onChange = evt => {
     switch (evt.target.name) {
       case 'name':
-        setName(evt.target.value);
+        setName(evt.target.value.trim());
         break;
       case 'number':
-        setNumber(evt.target.value);
+        setNumber(evt.target.value.trim());
         break;
       default:
         break;
@@ -54,7 +54,6 @@ export const ContactForm = ({ close }) => {
     addContact(newContact);
     setName('');
     setNumber('');
-    close();
   };
 
   return (

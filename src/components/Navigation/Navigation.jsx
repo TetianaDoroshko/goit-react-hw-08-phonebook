@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Nav } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import { NavItem } from './Navigation.styled';
 
 export const Navigation = () => {
   const isLoggedIn = useSelector(store => store.auth.isLoggedIn) ?? false;
@@ -8,11 +8,11 @@ export const Navigation = () => {
   return (
     <Nav>
       {isLoggedIn ? (
-        <Nav.Link href="contacts">Contacts</Nav.Link>
+        <NavItem to="contacts">Contacts</NavItem>
       ) : (
         <>
-          <Nav.Link href="register">Register</Nav.Link>
-          <Nav.Link href="login">Log in</Nav.Link>
+          <Nav.Link href="/register">Register</Nav.Link>
+          <Nav.Link href="/login">Log in</Nav.Link>
         </>
       )}
     </Nav>

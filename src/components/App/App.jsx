@@ -1,5 +1,4 @@
 import { GlobalStyle } from 'components/GlobalStyle';
-// import { Container } from './App.styled';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -14,7 +13,7 @@ import { refreshThunk } from 'redux/authThunk';
 import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
 import { PublicRoute } from 'components/PrivateRoute/PublicRoute';
 import { GreetingPage } from 'pages/GreetingPage';
-import { Container } from 'react-bootstrap';
+import { ContainerFluid } from './App.styled';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <PersistGate loading={null} persistor={persistor}>
-        <Container>
+        <ContainerFluid fluid>
           <GlobalStyle />
           <Toaster />
 
@@ -60,7 +59,7 @@ export const App = () => {
               <Route path="*" element={<Navigate to="/" />} />
             </Route>
           </Routes>
-        </Container>
+        </ContainerFluid>
       </PersistGate>
     </BrowserRouter>
   );

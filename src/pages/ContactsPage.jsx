@@ -1,12 +1,12 @@
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
 import { Card, Container } from 'react-bootstrap';
-import { Block } from 'components/App/App.styled';
+import { Block, ContainerContacts } from 'components/App/App.styled';
 import { AddContactBlock } from 'components/AddContactBlock/AddContactBlock';
 
 export const ContactsPage = () => {
   return (
-    <Container fluid="md">
+    <ContainerContacts fluid="md">
       <AddContactBlock />
 
       <Block>
@@ -16,6 +16,6 @@ export const ContactsPage = () => {
           <ContactList />
         </Card.Body>
       </Block>
-    </Container>
+    </ContainerContacts>
   );
 };
