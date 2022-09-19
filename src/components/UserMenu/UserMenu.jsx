@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk } from 'redux/authThunk';
 import { Nav, Navbar, Button } from 'react-bootstrap';
-import styled from 'styled-components';
 
 export const UserMenu = () => {
   const userEmail = useSelector(store => store.auth.user.email);

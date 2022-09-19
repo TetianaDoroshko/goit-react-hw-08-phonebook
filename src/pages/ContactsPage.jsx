@@ -1,6 +1,6 @@
 import { Filter } from 'components/Filter/Filter';
 import { ContactList } from 'components/ContactList/ContactList';
-import { Card, Container } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { Block, ContainerContacts } from 'components/App/App.styled';
 import { AddContactBlock } from 'components/AddContactBlock/AddContactBlock';
 

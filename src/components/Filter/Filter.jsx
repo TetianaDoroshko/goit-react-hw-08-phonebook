@@ -28,18 +28,18 @@ export const Filter = () => {
   );
 };
 
-{
-  /* //       (
-//   contacts && (
-//     <FilterContainer>
-//       <p>Find contacts by name</p>
-//       <Input
-        type="text"
-        name="filter"
-        value={filter}
-        onChange={e => dispatch(changeFilter(e.target.value))}
-      />
-    </FilterContainer>
-  )
-) */
-}
+// {
+//   /* //       (
+// //   contacts && (
+// //     <FilterContainer>
+// //       <p>Find contacts by name</p>
+// //       <Input
+//         type="text"
+//         name="filter"
+//         value={filter}
+//         onChange={e => dispatch(changeFilter(e.target.value))}
+//       />
+//     </FilterContainer>
+//   )
+// ) */
+// }

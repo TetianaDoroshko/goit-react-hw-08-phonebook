@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { loginThunk } from 'redux/authThunk';
-import { Form, Button, Container, Card, Stack } from 'react-bootstrap';
+import { Form, Button, Card, Stack } from 'react-bootstrap';
 import { Block, ContainerContacts } from 'components/App/App.styled';
 
 export const LoginPage = () => {

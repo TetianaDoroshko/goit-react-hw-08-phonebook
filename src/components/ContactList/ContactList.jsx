@@ -45,17 +45,17 @@ export const ContactList = () => {
   );
 };
 
-{
-  /* (
-    <>
-      {isLoading && <Spinner />}
-      {renderList.length > 0 && (
-        <ul>
-          {renderList?.map(contact => (
-            <Contact key={contact.id} contact={contact} />
-          ))}
-        </ul>
-      )}
-    </>
-  ); */
-}
+// {
+//   /* (
+//     <>
+//       {isLoading && <Spinner />}
+//       {renderList.length > 0 && (
+//         <ul>
+//           {renderList?.map(contact => (
+//             <Contact key={contact.id} contact={contact} />
+//           ))}
+//         </ul>
+//       )}
+//     </>
+//   ); */
+// }

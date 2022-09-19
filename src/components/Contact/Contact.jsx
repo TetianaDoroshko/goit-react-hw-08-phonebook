@@ -1,6 +1,4 @@
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-// import { Button } from 'components/Form/Form.styled';
 import { useDeleteContactsMutation } from 'redux/contactsSlice';
 import { useEffect, useState } from 'react';
 import { SpinnerForButton } from 'components/Spinner/Spinner';
@@ -65,10 +63,6 @@ export const Contact = ({ contact }) => {
   );
 };
 
-const ListItem = styled.li`
-  margin: 10px 0;
-`;
-
 Contact.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -77,29 +71,29 @@ Contact.propTypes = {
   }),
 };
 
-{
-  /* <ListItem>
-  <b>{contact.name}</b>: <span>{contact.number}</span>
-  <Button
-    type="button"
-    onClick={() => deleteContact(contact.id)}
-    disabled={isLoading}
-  >
-    {isLoading ? <SpinnerForButton /> : 'Delete'}
-  </Button>
-  <Button
-    type="button"
-    onClick={() => setIsModalShown(true)}
-    disabled={isLoading}
-  >
-    {isLoading ? <SpinnerForButton /> : 'Update'}
-  </Button>
-  {isModalShown && (
-    <ModalUpdateContact
-      contact={contact}
-      close={() => setIsModalShown(false)}
-      isShown={isModalShown}
-    />
-  )}
-</ListItem>; */
-}
+// {
+//   /* <ListItem>
+//   <b>{contact.name}</b>: <span>{contact.number}</span>
+//   <Button
+//     type="button"
+//     onClick={() => deleteContact(contact.id)}
+//     disabled={isLoading}
+//   >
+//     {isLoading ? <SpinnerForButton /> : 'Delete'}
+//   </Button>
+//   <Button
+//     type="button"
+//     onClick={() => setIsModalShown(true)}
+//     disabled={isLoading}
+//   >
+//     {isLoading ? <SpinnerForButton /> : 'Update'}
+//   </Button>
+//   {isModalShown && (
+//     <ModalUpdateContact
+//       contact={contact}
+//       close={() => setIsModalShown(false)}
+//       isShown={isModalShown}
+//     />
+//   )}
+// </ListItem>; */
+// }
