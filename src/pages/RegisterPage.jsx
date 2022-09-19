@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { signupThunk } from 'redux/authThunk';
-import { Form, Button, Card, Stack } from 'react-bootstrap';
-import { Block, ContainerContacts } from 'components/App/App.styled';
-import toast from 'react-hot-toast';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signupThunk } from "redux/authThunk";
+import { Form, Button, Card, Stack } from "react-bootstrap";
+import { Block, ContainerContacts } from "components/App/App.styled";
+import toast from "react-hot-toast";
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
-  const error = useSelector(store => store.auth.error);
-  const onFormSubmit = e => {
+  const error = useSelector((store) => store.auth.error);
+  const onFormSubmit = (e) => {
     e.preventDefault();
     const newUser = {
       name: e.target.elements.name.value,
@@ -40,7 +40,7 @@ export const RegisterPage = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="email">
-              <Form.Label>Phone number</Form.Label>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -60,7 +60,7 @@ export const RegisterPage = () => {
             </Form.Group>
             <Stack>
               <Button type="submit" variant="outline-primary">
-                Register
+                Sign up
               </Button>
             </Stack>
           </Form>
