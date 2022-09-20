@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { signupThunk } from 'redux/authThunk';
+import { useDispatch } from "react-redux";
+import { signupThunk } from "redux/authThunk";
 
 export const RegisterPage = () => {
   const dispatch = useDispatch();
 
-  const onFormSubmit = e => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
     const newUser = {
       name: e.target.elements.name.value,
@@ -29,7 +29,7 @@ export const RegisterPage = () => {
           Password:
           <input type="password" name="password" autoComplete="off" />
         </label>
-        <button type="submit">Register</button>
+        <button type="submit">Sign up</button>
       </form>
     </div>
   );
