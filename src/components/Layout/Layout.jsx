@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import { AppBar } from 'components/AppBar/AppBar';
+import { Layout } from 'antd';
 
-export const Layout = () => {
+export const AppLayout = () => {
   return (
-    <>
+    <Layout>
       <AppBar />
-      <main>
+      <Layout.Content>
         <Outlet />
-      </main>
-    </>
+      </Layout.Content>
+    </Layout>
   );
 };

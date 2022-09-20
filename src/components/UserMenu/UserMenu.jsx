@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutThunk } from 'redux/authThunk';
+import { Space, Button, Typography } from 'antd';
 
 export const UserMenu = () => {
   const userEmail = useSelector(store => store.auth.user.email);
   const dispatch = useDispatch();
 
   return (
-    <div>
-      <p>{userEmail}</p>
-      <button type="button" onClick={() => dispatch(logoutThunk())}>
+    <Space>
+      <Typography.Text>{userEmail}</Typography.Text>
+      <Button type="primary" ghost onClick={() => dispatch(logoutThunk())}>
         Logout
-      </button>
-    </div>
+      </Button>
+    </Space>
   );
 };
