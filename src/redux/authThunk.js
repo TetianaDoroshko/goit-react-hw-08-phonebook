@@ -9,7 +9,15 @@ export const signupThunk = createAsyncThunk(
       addToken(data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log({
+        error,
+      });
+      return thunkAPI.rejectWithValue({
+        message: error.message,
+        name: error.response?.data?.errors?.name?.message ?? null,
+        email: error.response?.data?.errors?.email?.message ?? null,
+        password: error.response?.data?.errors?.password?.message ?? null,
+      });
     }
   }
 );
@@ -22,7 +30,7 @@ export const loginThunk = createAsyncThunk(
       addToken(data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -35,7 +43,7 @@ export const logoutThunk = createAsyncThunk(
       removeToken(thunkAPI.getState().auth.token);
       return;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -51,7 +59,7 @@ export const refreshThunk = createAsyncThunk(
       return data;
     } catch (error) {
       removeToken();
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error.message);
     }
   },
   {

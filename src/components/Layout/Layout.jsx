@@ -6,7 +6,13 @@ export const AppLayout = () => {
   return (
     <Layout>
       <AppBar />
-      <Layout.Content>
+      <Layout.Content
+        style={{
+          minHeight: '100vh',
+          textAlign: 'center',
+          padding: '30px 50px',
+        }}
+      >
         <Outlet />
       </Layout.Content>
     </Layout>

@@ -1,18 +1,25 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { Form, Input, Button } from './Form.styled';
+import { Form, Input, Button, Tooltip } from 'antd';
 import { useAddContactsMutation } from 'redux/contactsSlice';
 import { useGetContactsQuery } from 'redux/contactsSlice';
 import { SpinnerForButton } from 'components/Spinner/Spinner';
+import { useRef } from 'react';
+import { UpCircleTwoTone } from '@ant-design/icons';
+import styled from 'styled-components';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   const { data: contacts } = useGetContactsQuery();
 
   const [addContact, { isLoading, isError, isSuccess, data }] =
     useAddContactsMutation();
+
+  const [form] = Form.useForm();
+  const formRef = useRef();
 
   useEffect(() => {
     if (isSuccess) {
@@ -26,65 +33,123 @@ export const ContactForm = () => {
     }
   }, [isError]);
 
-  const onChange = evt => {
-    switch (evt.target.name) {
+  const onChangeField = evt => {
+    const fieldName = evt[0]?.name[0] ?? null;
+    switch (fieldName) {
       case 'name':
-        setName(evt.target.value);
+        setName(evt[0].value);
+        form.setFieldsValue({
+          note: 'name--',
+        });
         break;
       case 'number':
-        setNumber(evt.target.value);
+        setNumber(evt[0].value);
+        form.setFieldsValue({
+          note: 'number--',
+        });
         break;
       default:
         break;
     }
   };
 
-  const handleSubmit = evt => {
-    evt.preventDefault();
-
+  const handleSubmit = value => {
     if (contacts.some(contact => contact.name === name)) {
       toast(`${name} is already  in contacts`);
       return;
     }
+    addContact(value);
 
-    const newContact = {
-      name: name,
-      number: number,
-    };
-    addContact(newContact);
     setName('');
     setNumber('');
+    formRef.current.resetFields();
   };
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <label>
-        Name
-        <Input
-          type="text"
+  return isFormOpen ? (
+    <div>
+      <ButtonClose
+        style={{ padding: '0' }}
+        type="primary"
+        shape="circle"
+        ghost
+        icon={<UpCircleTwoTone />}
+        size="large"
+        onClick={() => setIsFormOpen(false)}
+      />
+      <Form
+        ref={formRef}
+        layout="vertical"
+        name="addNumber"
+        initialValues={{ remember: true }}
+        onFinish={handleSubmit}
+        onFieldsChange={onChangeField}
+      >
+        <Form.Item
+          label="Name"
           name="name"
-          value={name}
-          onChange={onChange}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </label>
-      <label>
-        Number
-        <Input
-          type="tel"
+          rules={[{ required: true, message: 'Please, input your username' }]}
+        >
+          <Input
+            value={name}
+            type="text"
+            name="name"
+            // onChange={onChangeField}
+            // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            // title="Name may contain only letters, apostrophe, dash and spaces."
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Number"
           name="number"
-          value={number}
-          onChange={onChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </label>
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? <SpinnerForButton /> : 'Add contact'}
-      </Button>
-    </Form>
+          rules={[{ required: true, message: 'Please, input your password' }]}
+        >
+          <Input
+            autoComplete="off"
+            type="tel"
+            name="number"
+            value={number}
+            // onChange={onChangeField}
+            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            // title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          />
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            ghost
+            htmlType="submit"
+            disabled={isLoading}
+            block
+          >
+            {isLoading ? <SpinnerForButton /> : 'Add contact'}
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  ) : (
+    <Button
+      type="primary"
+      ghost
+      block
+      style={{ marginBottom: '20px' }}
+      onClick={() => setIsFormOpen(true)}
+    >
+      Add new contact
+    </Button>
   );
 };
+
+export const ButtonClose = styled(Button)`
+  padding: 0;
+  & span {
+    width: 100%;
+    height: 100%;
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;

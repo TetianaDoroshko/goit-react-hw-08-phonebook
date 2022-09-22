@@ -7,7 +7,13 @@ export const UserMenu = () => {
   const dispatch = useDispatch();
 
   return (
-    <Space>
+    <Space
+      style={{
+        flex: '1 1 auto',
+        // minWidth: 0,
+        justifyContent: 'flex-end',
+      }}
+    >
       <Typography.Text>{userEmail}</Typography.Text>
       <Button type="primary" ghost onClick={() => dispatch(logoutThunk())}>
         Logout

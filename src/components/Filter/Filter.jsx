@@ -1,5 +1,5 @@
-import { Input } from 'components/Form/Form.styled';
-import { FilterContainer } from './Filter.styled';
+// import { Input } from 'components/Form/Form.styled';
+import { Input, Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter } from 'redux/contactsSlice';
 import { useGetContactsQuery } from 'redux/contactsSlice';
@@ -13,15 +13,16 @@ export const Filter = () => {
 
   return (
     contacts && (
-      <FilterContainer>
-        <p>Find contacts by name</p>
-        <Input
-          type="text"
-          name="filter"
-          value={filter}
-          onChange={e => dispatch(changeFilter(e.target.value))}
-        />
-      </FilterContainer>
+      <Form layout="vertical" autoComplete="off">
+        <Form.Item label="Find contacts by name" name="filter">
+          <Input
+            type="text"
+            name="filter"
+            value={filter}
+            onChange={e => dispatch(changeFilter(e.target.value))}
+          />
+        </Form.Item>
+      </Form>
     )
   );
 };

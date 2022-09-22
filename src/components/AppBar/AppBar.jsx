@@ -1,14 +1,36 @@
+import styles from './AppBar.module.css';
 import { Navigation } from 'components/Navigation/Navigation';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
-import { Layout } from 'antd';
+import { Layout, Image, Typography, Space } from 'antd';
+import logo from 'images/phone-book (1).png';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const AppBar = () => {
   const isLoggedIn = useSelector(store => store.auth.isLoggedIn) ?? false;
   return (
-    <Layout.Header>
+    <Header>
+      <Link to="/">
+        <Space style={{ alignItems: 'center' }}>
+          <Image width={80} src={logo} preview={false} />{' '}
+          <Typography.Title style={{ marginBottom: '0' }}>
+            Phonebook
+          </Typography.Title>
+        </Space>
+      </Link>
+
       <Navigation />
       {isLoggedIn && <UserMenu />}
-    </Layout.Header>
+    </Header>
   );
 };
+
+export const Header = styled(Layout.Header)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: lightsteelblue;
+  height: 100px;
+  font-size: 20px;
+`;

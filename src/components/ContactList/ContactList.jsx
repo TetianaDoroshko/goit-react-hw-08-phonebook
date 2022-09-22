@@ -4,6 +4,7 @@ import { useGetContactsQuery } from 'redux/contactsSlice';
 import { useMemo, useEffect } from 'react';
 import { Spinner } from 'components/Spinner/Spinner';
 import toast from 'react-hot-toast';
+import { List } from 'antd';
 
 export const ContactList = () => {
   const filter = useSelector(state => state.filter);
@@ -33,13 +34,23 @@ export const ContactList = () => {
   return (
     <>
       {isLoading && <Spinner />}
-      {renderList.length > 0 && (
-        <ul>
-          {renderList?.map(contact => (
-            <Contact key={contact.id} contact={contact} />
-          ))}
-        </ul>
-      )}
+
+      <List
+        className="demo-loadmore-list"
+        // loading={initLoading}
+        itemLayout="horizontal"
+        // loadMore={loadMore}
+        dataSource={renderList}
+        renderItem={contact => <Contact key={contact.id} contact={contact} />}
+      />
     </>
   );
 };
+
+// {renderList.length > 0 && (
+//         <ul>
+//           {renderList?.map(contact => (
+//             <Contact key={contact.id} contact={contact} />
+//           ))}
+//         </ul>
+//       )}
