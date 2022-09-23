@@ -8,14 +8,14 @@ export const GreetingPage = () => {
   const isLoggedIn = useSelector(store => store.auth.isLoggedIn);
   return isLoggedIn ? (
     <div>
-      <h1>Hello, {name}</h1>
+      <h1 style={{ marginBottom: '20px' }}>Hello, {name}</h1>
+      <Link to="contacts">
+        <Image src={logoLg} preview={false} />
+      </Link>{' '}
     </div>
   ) : (
     <>
       <h1>Welcome to Phonebook</h1>
-      <Link to="contacts">
-        <Image src={logoLg} preview={false} />
-      </Link>
     </>
   );
 };

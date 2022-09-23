@@ -44,9 +44,18 @@ export const Contact = ({ contact }) => {
           onClick={() => setIsModalShown(true)}
           disabled={isLoading}
         >
-          {isLoading ? <SpinnerForButton /> : 'Update'}
+          Update
         </Button>,
       ]}
+      extra={
+        isModalShown && (
+          <ModalUpdateContact
+            contact={contact}
+            close={() => setIsModalShown(false)}
+            isOpen={isModalShown}
+          />
+        )
+      }
     >
       <List.Item.Meta
         avatar={<Avatar src={person} />}
@@ -54,13 +63,6 @@ export const Contact = ({ contact }) => {
         description={contact.number}
         style={{ textAlign: 'left', fontSize: '29px' }}
       />
-
-      {isModalShown && (
-        <ModalUpdateContact
-          contact={contact}
-          close={() => setIsModalShown(false)}
-        />
-      )}
     </List.Item>
   );
 };

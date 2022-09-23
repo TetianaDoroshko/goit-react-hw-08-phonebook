@@ -1,4 +1,3 @@
-import styles from './AppBar.module.css';
 import { Navigation } from 'components/Navigation/Navigation';
 import { UserMenu } from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
@@ -14,7 +13,7 @@ export const AppBar = () => {
       <Link to="/">
         <Space style={{ alignItems: 'center' }}>
           <Image width={80} src={logo} preview={false} />{' '}
-          <Typography.Title style={{ marginBottom: '0' }}>
+          <Typography.Title style={{ marginBottom: '0', fontSize: '26px' }}>
             Phonebook
           </Typography.Title>
         </Space>
@@ -32,5 +31,5 @@ export const Header = styled(Layout.Header)`
   align-items: center;
   background-color: lightsteelblue;
   height: 100px;
-  font-size: 20px;
+  font-size: 18px;
 `;

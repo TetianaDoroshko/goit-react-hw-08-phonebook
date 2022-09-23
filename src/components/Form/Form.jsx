@@ -38,15 +38,15 @@ export const ContactForm = () => {
     switch (fieldName) {
       case 'name':
         setName(evt[0].value);
-        form.setFieldsValue({
-          note: 'name--',
-        });
+        // form.setFieldsValue({
+        //   note: 'name--',
+        // });
         break;
       case 'number':
         setNumber(evt[0].value);
-        form.setFieldsValue({
-          note: 'number--',
-        });
+        // form.setFieldsValue({
+        //   note: 'number--',
+        // });
         break;
       default:
         break;
